@@ -11,7 +11,7 @@ const standartResponse = require('./src/helper/response')
 
 
 
-const PORT = 1234
+const PORT = process.env.PORT || 1234
 
 
 // middleware
