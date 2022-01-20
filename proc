@@ -1,0 +1,20 @@
+// API LIST
+
+// AUTH
+login // post (ngambil data dari database customer)
+login2 // post (ngambil data dari database seller)
+register // post (menambah data ke database customer)
+register2 // post (menambahkan data ke database seller)
+
+
+// customer
+product-list // get (menampilkan seluruh data dari database product)
+select-category // get (menampilkan seluruh data dari database product yg sudah di innerjoin dgn database category)
+detail-product // get (menampilkan data dari product sesuai nama yg di pilih)
+get-address // get (menampilkan alamat customer dari database address)
+add-addres // post (menambah alamat customer ke databse address)
+seacrh-product // get (menampilkan product sesuai query)
+info-customer // get (menampilkan seluruh info customer)
+
+// seller
+add-product // post (menambah product ke database product)

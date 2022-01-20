@@ -1,15 +1,17 @@
 require('dotenv').config()
 const express = require('express')
-// const userController = require('./src/controller/user')
-const helperCommon = require('./src/helper/common')
-const adminRoute = require('./src/route/admin')
-const userRoute = require('./src/route/user')
-const authRoute = require('./src/route/auth')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const routeAuth = require('./src/route/auth')
+const routeCustomer = require('./src/route/customer')
+const routeSeller = require('./src/route/seller')
+const helperCommon = require('./src/helper/common')
+const standartResponse = require('./src/helper/response')
 
-const PORT = process.env.PORT || 1234
+
+
+const PORT = 1234
 
 
 // middleware
@@ -19,33 +21,30 @@ app.use(cors())
 // middleware-logging
 app.use(morgan('dev'))
 
-// (admin)
-app.use('/admin', adminRoute)
+// customer
+app.use('/customer', routeCustomer)
 
-// portal
-app.use('/auth', authRoute)
+// seller
+app.use('/seller', routeSeller)
 
-// (user)
-app.use('/user', userRoute)
+// auth
+app.use('/auth', routeAuth)
 
-// transaction
-
-// history
-
-// seach by name
+// error
+app.use((err, req, res, next) => {
+  console.log(err)
+  standartResponse.respons(res, null, err.status, err.message)
+})
 
 // url not found
 app.use(helperCommon.url)
 
-// error handling
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  console.log(err)
-  // res.status(err.status).send(err.message)
-  helperCommon.respons(res, null, err.status, err.message)
-})
+
 
 // listen
 app.listen(PORT, () => {
-  console.log('server running....')
-})
+    console.log('server running....')
+  })
+  
+
+

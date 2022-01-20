@@ -1,9 +1,7 @@
 const express = require('express')
-const userController = require('../controller/user')
 const route = express.Router()
+const sellerController = require('../controller/seller')
 
-
-route.post('/register', userController.registerUser)
-route.post('/login', userController.login)
+route.post('/register', sellerController.register)
 
 module.exports = route
