@@ -51,7 +51,7 @@ const selectProduct = (id) => {
 
 const productPage = (limit, offset) => {
   return new Promise((resolve, reject) => {
-    connection.query('SELECT * FROM customer LIMIT ? OFFSET ?', [limit, offset],
+    connection.query('SELECT * FROM product LIMIT ? OFFSET ?', [limit, offset],
       (error, results, fields) => {
         if (error) {
           reject(error)
