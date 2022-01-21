@@ -83,9 +83,46 @@ const detailProduct = async (req, res, next) => {
 }
 
 
+const searchProduct = async (req, res, next) => {
+    try {
+        const { name } = req.query
+        const result = await productModel.productLike(name)
+        if (result == 0) {
+            standartRespons.respons(res, result, 200, 'product not found :(')
+        }
+        standartRespons.respons(res, result, 200, 'success get product')
+    }
+    catch (error) {
+
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
+
+const category = async (req, res, next) => {
+    try {
+        const name = req.params.category
+        console.log(name)
+        const categorylist = await productModel.validCategory()
+        const check = categorylist.map(ca => ca.name)
+        if(check.includes(name)){
+            const result = await productModel.categorySelect(name)
+            standartRespons.respons(res, result, 200, `all product in ${name}`)
+        } else{
+            next(createError(401, 'category not found'))
+        }
+    }
+    catch (error) {
+        console.log(error)
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
+
 module.exports = {
     addProduct,
     listProduct,
     detailProduct,
-    
+    searchProduct,
+    category
 }

@@ -75,11 +75,38 @@ const countProduct = () => {
   })
 }
 
+const productLike = (name) => {
+  return new Promise((resolve,reject) => {
+      connection.query(`select * from product where name like '%${name}%'`, (err, results) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(results)
+          }
+      })
+  })
+}
+
+
+const categorySelect = (cat) => {
+  return new Promise((resolve,reject) => {
+      connection.query(`select * from product where category='${cat}'`, (err, results) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(results)
+          }
+      })
+  })
+}
+
 module.exports = {
   createProduct,
   validCategory,
   productAll,
   selectProduct,
   productPage,
-  countProduct
+  countProduct,
+  productLike,
+  categorySelect
 }
