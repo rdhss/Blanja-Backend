@@ -1,5 +1,3 @@
-// const createError = require("http-errors");
-
 const url = (req, res, next) => {
     res.status(404)
     res.json(

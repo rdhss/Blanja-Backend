@@ -1,11 +1,19 @@
-create table user (id int auto_increment primary key, user_id int, phone int, Name varchar(64), Email varchar(64), password int, pin int)
-
-create table wallet (id_user int primary key, balance int);
-
-create table transaction (id int primary key, id_sender int, receiver int, amount int);
-
-insert into user (user_id, phone, Name, Email, password, pin) values 
-(334, 082178, 'ridho', 'ridho@gmail.com', 123, 123)
+-- CUSTOMER
+insert into customer(id, name, password, email) values (1,"ridho", "ridho123","ridho@gmail.com" );
+select * from customer;
 
 
-insert into wallet (id_user, balance) values (334,1000000)
+-- SELLER
+insert into seller(id, name, email, phone, storename, password) values (1
+,"ridho", "ridho@gmail.com", 8211111, "ridhostore", "ridho123" );
+
+-- PRODUCT
+insert into product(namestore, Name, price, qty, category, photo1, photo2, photo3, photo4, conditions, description) values ('ridhostore', 'rihdo', 50, 5,
+ 'cap', 'test', 'test', 'test', 'test', 'new', 'topi ajaib');
+
+ -- ADDRESS
+insert into address(id, saveas, receiptname, receiptphone, address, postalcode, city) values (1, 'rumah', 'ridho',
+81111, 'jl.haha', 89899, 'pekanbaru');
+
+-- CATEGORY
+

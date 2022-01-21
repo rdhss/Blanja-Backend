@@ -8,7 +8,7 @@ const routeCustomer = require('./src/route/customer')
 const routeSeller = require('./src/route/seller')
 const helperCommon = require('./src/helper/common')
 const standartResponse = require('./src/helper/response')
-
+const bodyParser = require('body-parser');
 
 
 const PORT = process.env.PORT || 1234
@@ -17,6 +17,8 @@ const PORT = process.env.PORT || 1234
 // middleware
 app.use(express.json())
 app.use(cors())
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // middleware-logging
 app.use(morgan('dev'))
