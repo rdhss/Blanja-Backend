@@ -42,7 +42,7 @@ const login = async(req, res, next) => {
     const hashPass = login[0].password 
     const passHash = await bcrypt.compare(password, hashPass)
     if(passHash){
-        standartRespons.respons(res, login, 200, `welcome back ${login[0].Name}`)
+        standartRespons.respons(res, login, 200, `welcome back ${login[0].name}`)
     } else{
         next(createError(401, 'wrong password'))
     }

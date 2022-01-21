@@ -19,8 +19,8 @@ const register = async (req, res, next) => {
         const alluser = await costumerModel.readAllcustomer()
         const checkEmail = alluser.map(email => email.email)
         console.log(checkEmail)
-        if(checkEmail.includes(email)){
-            return next(createError(401,'this is email already registered'))
+        if (checkEmail.includes(email)) {
+            return next(createError(401, 'this is email already registered'))
         } else {
             const result = await costumerModel.createCustomer(data)
             standartRespons.respons(res, null, 200, 'register success')
@@ -31,23 +31,41 @@ const register = async (req, res, next) => {
     }
 }
 
-const login = async(req, res, next) => {
-    const { email , password } = req.body
+const login = async (req, res, next) => {
+    const { email, password } = req.body
     const login = await costumerModel.readAllcustomer2(email)
-    if(login == 0){ 
+    console.log(login)
+    if (login == 0) {
         next(createError(401, 'user not registered'))
     }
-    const hashPass = login[0].password 
+    const hashPass = login[0].password
     const passHash = await bcrypt.compare(password, hashPass)
-    if(passHash){
+    if (passHash) {
+        console.log(login)
         standartRespons.respons(res, login, 200, `welcome back ${login[0].Name}`)
-    } else{
+    } else {
         next(createError(401, 'wrong password'))
     }
 }
 
+const profile = async (req, res, next) => {
+    try {
+        const userId = req.params.id
+        const detail = await costumerModel.selectUser(userId)
+        if (detail == 0) {
+            standartRespons.respons(res, null, 200, 'id not registered')
+        }
+        standartRespons.respons(res, detail, 200, `hai ${detail[0].Name}`)
+    }
+    catch (error) {
+
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
 
 module.exports = {
     register,
-    login
+    login,
+    profile
 }

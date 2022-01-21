@@ -37,8 +37,21 @@ const readAllcustomer2 = (idUser) => {
     })
   }
 
+const selectUser = (id) => {
+    return new Promise((resolve,reject) => {
+        connection.query(`select * from customer where id=${id}`, (err, results) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(results)
+            }
+        })
+    })
+}
+
 module.exports ={
     createCustomer,
     readAllcustomer,
-    readAllcustomer2
+    readAllcustomer2,
+    selectUser
 }
