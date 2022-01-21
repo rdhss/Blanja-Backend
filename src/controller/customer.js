@@ -1,6 +1,7 @@
 const createError = require('http-errors')
 const standartRespons = require('../helper/response')
 const costumerModel = require('../models/customer')
+const addressModel = require('../models/address')
 const bcrypt = require('bcrypt')
 
 
@@ -64,8 +65,46 @@ const profile = async (req, res, next) => {
     }
 }
 
+const getAddress = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const result = await addressModel.addressList(id)
+        standartRespons.respons(res, result, 200, 'your address list')
+    }
+    catch (error) {
+
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
+
+const postAddress = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const {saveas, receiptname, receiptphone, address, postalcode, city} = req.body
+        const data = {
+            id : id,
+            saveas,
+            receiptname,
+            receiptphone,
+            address,
+            postalcode,
+            city
+        }
+        const result = await addressModel.createAddress(data)
+        standartRespons.respons(res, null, 200, 'success add address')
+    }
+    catch (error) {
+        console.log(error)
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
+
 module.exports = {
     register,
     login,
-    profile
+    profile,
+    getAddress,
+    postAddress
 }

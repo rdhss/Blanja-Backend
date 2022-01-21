@@ -42,8 +42,19 @@ const addProduct = async (req, res, next) => {
 
 const listProduct = async (req, res, next) => {
     try {
-        const allProduct = await productModel.productAll()
-        standartRespons.respons(res, allProduct, 200, 'all product')
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 8
+        const offset = (page - 1) * limit
+        const productAll = await productModel.productPage(limit, offset)
+        const allProduct = await productModel.countProduct()
+        const { total } = allProduct[0]
+        console.log(total)
+        standartRespons.respons(res, productAll, 200, 'all product', {
+            currentPage: page,
+            limit: limit,
+            totalData: total,
+            totalPage: Math.ceil(total / limit)
+        })
     }
     catch (error) {
         console.log(error)
@@ -60,7 +71,7 @@ const detailProduct = async (req, res, next) => {
         console.log(product == 0)
         if (product == 0) {
             standartRespons.respons(res, null, 200, 'product not found :(')
-        } else{
+        } else {
             standartRespons.respons(res, product, 200, 'success get product')
         }
     }
@@ -75,5 +86,6 @@ const detailProduct = async (req, res, next) => {
 module.exports = {
     addProduct,
     listProduct,
-    detailProduct
+    detailProduct,
+    
 }
