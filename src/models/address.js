@@ -24,9 +24,9 @@ const addressList = (id) => {
     })
 }
 
-const updateAddress = (data, idUser) => {
+const updateAddress = (data, idUser, idAddress) => {
   return new Promise((resolve, reject) => {
-    connection.query('UPDATE address SET ? WHERE id = ?', [data, idUser], (error, result) => {
+    connection.query('UPDATE address SET ? WHERE id = ? and id_address = ?' , [data, idUser, idAddress], (error, result) => {
       if (error) {
         console.log(error)
         reject(error)

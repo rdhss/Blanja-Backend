@@ -89,7 +89,8 @@ const postAddress = async (req, res, next) => {
             receiptphone,
             address,
             postalcode,
-            city
+            city,
+            id_address: Math.floor(Math.random() * 999999)
         }
         const result = await addressModel.createAddress(data)
         standartRespons.respons(res, null, 200, 'success add address')
@@ -127,6 +128,7 @@ const changeAddress = async (req, res, next) => {
 
     try {
         const idUser = req.params.id
+        const idAddress = req.query.id
         const { saveas, receiptname, receiptphone, address, postalcode, city } = req.body
         const data = {
             saveas,
@@ -134,9 +136,9 @@ const changeAddress = async (req, res, next) => {
             receiptphone,
             address,
             postalcode,
-            city
+            city,
         }
-        const result = await addressModel.updateAddress(data, idUser)
+        const result = await addressModel.updateAddress(data, idUser,idAddress)
         res.json({
             message: 'Address has been update'
         })
