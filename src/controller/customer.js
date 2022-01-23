@@ -81,9 +81,9 @@ const getAddress = async (req, res, next) => {
 const postAddress = async (req, res, next) => {
     try {
         const id = req.params.id
-        const {saveas, receiptname, receiptphone, address, postalcode, city} = req.body
+        const { saveas, receiptname, receiptphone, address, postalcode, city } = req.body
         const data = {
-            id : id,
+            id: id,
             saveas,
             receiptname,
             receiptphone,
@@ -101,10 +101,57 @@ const postAddress = async (req, res, next) => {
     }
 }
 
+const changeName = async (req, res, next) => {
+
+    try {
+        const idUser = req.params.id
+        const { name, email, phone, gender, birth } = req.body
+        const data = {
+            name: name,
+            email,
+            phone,
+            gender,
+            birth
+        }
+        const result = await costumerModel.updateProfile(data, idUser)
+        res.json({
+            message: 'profile has been update'
+        })
+
+    } catch (error) {
+        next(createError.InternalServerError)
+    }
+}
+
+const changeAddress = async (req, res, next) => {
+
+    try {
+        const idUser = req.params.id
+        const { saveas, receiptname, receiptphone, address, postalcode, city } = req.body
+        const data = {
+            saveas,
+            receiptname,
+            receiptphone,
+            address,
+            postalcode,
+            city
+        }
+        const result = await addressModel.updateAddress(data, idUser)
+        res.json({
+            message: 'Address has been update'
+        })
+
+    } catch (error) {
+        next(createError.InternalServerError)
+    }
+}
+
 module.exports = {
     register,
     login,
     profile,
     getAddress,
-    postAddress
+    postAddress,
+    changeName,
+    changeAddress
 }

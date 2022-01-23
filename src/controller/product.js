@@ -21,11 +21,12 @@ const addProduct = async (req, res, next) => {
             photo4,
             conditions,
             description,
-            id: idUser
+            id: idUser,
+            created_at: new Date()
         }
         const categorylist = await productModel.validCategory()
         const check = categorylist.map(ca => ca.name)
-        console.log(check)
+        console.log(data)
         if (check.includes(category)) {
             const result = await productModel.createProduct(data)
             standartRespons.respons(res, null, 200, 'success add product')

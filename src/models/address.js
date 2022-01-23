@@ -24,7 +24,21 @@ const addressList = (id) => {
     })
 }
 
+const updateAddress = (data, idUser) => {
+  return new Promise((resolve, reject) => {
+    connection.query('UPDATE address SET ? WHERE id = ?', [data, idUser], (error, result) => {
+      if (error) {
+        console.log(error)
+        reject(error)
+      } else {
+        resolve(result)
+      }
+    })
+  })
+}
+
 module.exports = {
     addressList,
-    createAddress
+    createAddress,
+    updateAddress
 }
