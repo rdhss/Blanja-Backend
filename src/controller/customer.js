@@ -115,9 +115,8 @@ const changeName = async (req, res, next) => {
             birth
         }
         const result = await costumerModel.updateProfile(data, idUser)
-        res.json({
-            message: 'profile has been update'
-        })
+        standartRespons.respons(res, data, 200, 'profile has been update')
+
 
     } catch (error) {
         next(createError.InternalServerError)
@@ -139,9 +138,7 @@ const changeAddress = async (req, res, next) => {
             city,
         }
         const result = await addressModel.updateAddress(data, idUser,idAddress)
-        res.json({
-            message: 'Address has been update'
-        })
+        standartRespons.respons(res, data, 200, 'address has been update')
 
     } catch (error) {
         next(createError.InternalServerError)
