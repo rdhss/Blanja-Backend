@@ -12,9 +12,9 @@ const createAddress = (data) => {
     })
 }
 
-const addressList = (id) => {
+const addressList = (id , limit, offset) => {
     return new Promise((resolve,reject) => {
-        connection.query(`select * from address where id=${id}`, (err, results) => {
+        connection.query(`select * from address where id=${id} LIMIT ${limit} OFFSET ${offset}`, (err, results) => {
             if (err) {
               reject(err)
             } else {
@@ -37,8 +37,21 @@ const updateAddress = (data, idUser, idAddress) => {
   })
 }
 
+const countAddress = (id) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT COUNT(*) as total FROM address where id=${id}`, (error, result) => {
+      if (!error) {
+        resolve(result)
+      } else {
+        reject(error)
+      }
+    })
+  })
+}
+
 module.exports = {
     addressList,
     createAddress,
-    updateAddress
+    updateAddress,
+    countAddress
 }

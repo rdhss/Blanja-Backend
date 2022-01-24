@@ -68,8 +68,13 @@ const profile = async (req, res, next) => {
 const getAddress = async (req, res, next) => {
     try {
         const id = req.params.id
-        const result = await addressModel.addressList(id)
-        standartRespons.respons(res, result, 200, 'your address list')
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 2
+        const offset = (page - 1) * limit
+        const result = await addressModel.addressList(id,limit,offset)
+        const addressC = await addressModel.countAddress(id)
+        const { total } = addressC[0]
+        standartRespons.respons(res, result, 200, `your have ${total} address`)
     }
     catch (error) {
 
