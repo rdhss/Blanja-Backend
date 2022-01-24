@@ -39,7 +39,7 @@ const productAll = () => {
 
 const productDelete = (id) => {
   return new Promise((resolve, reject) => {
-    connection.query(`delete from product where Name=${id}`, (err, results) => {
+    connection.query(`delete from product where id=${id}`, (err, results) => {
       if (err) {
         reject(err)
       } else {
