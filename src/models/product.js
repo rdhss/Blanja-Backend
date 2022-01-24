@@ -37,6 +37,19 @@ const productAll = () => {
   })
 }
 
+const productDelete = (id) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`delete from product where id=${id}`, (err, results) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(results)
+      }
+    })
+  })
+}
+
+
 const selectProduct = (id) => {
   return new Promise((resolve, reject) => {
     connection.query(`select * from product where id=${id}`, (err, results) => {
@@ -108,5 +121,6 @@ module.exports = {
   productPage,
   countProduct,
   productLike,
-  categorySelect
+  categorySelect,
+  productDelete
 }

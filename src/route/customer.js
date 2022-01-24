@@ -6,6 +6,7 @@ const productController = require('../controller/product')
 
 route.get('/all-product', productController.listProduct)
 route.get('/product/:id', productController.detailProduct)
+route.delete('/product/delete/:id', productController.deleteProduct)
 route.get('/profile/:id', customerController.profile)
 route.get('/address/:id', customerController.getAddress)
 route.put('/address/update/:id', customerController.changeAddress)

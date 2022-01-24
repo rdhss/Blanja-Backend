@@ -120,10 +120,24 @@ const category = async (req, res, next) => {
     }
 }
 
+const deleteProduct = async (req, res, next) => {
+    try {
+        const idProduct = req.params.id
+        const result = await productModel.productDelete(idProduct)
+        standartRespons.respons(res, result, 200, 'success detele')
+    }
+    catch (error) {
+
+        const err = new createError.InternalServerError()
+        next(err)
+    }
+}
+
 module.exports = {
     addProduct,
     listProduct,
     detailProduct,
     searchProduct,
-    category
+    category,
+    deleteProduct
 }
